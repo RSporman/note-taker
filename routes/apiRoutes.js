@@ -14,7 +14,7 @@ const path = require('path');
 
 module.exports = function(app) {
 
-  fs.readFile('db/db.json','utf8'), function(err, data) {
+  fs.readFile('db/db.json','utf8', function(err, data) {
     if (err) throw err;
     
     var notes = JSON.parse(data);
@@ -66,11 +66,13 @@ app.delete("/api/notes/:id", function(req, res){
 
 
 function updateDb() {
-  fs.writeFile('db/db.json'), JSON.stringify(notes), function(err){
+  fs.writeFile('db/db.json', (JSON.stringify(notes)), function(err){
       if (err) throw err;
       return true;
-  };
+  });
 }
 
-  }
+  })
 }
+
+
