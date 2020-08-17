@@ -4,7 +4,7 @@
 // These data sources hold arrays of information on table-data, waitinglist, etc.
 // ===============================================================================
 
-// var noteData = require("../db/db.json");
+// const notes = require("../db/db.json");
 
 const fs = require('fs');
 const path = require('path');
@@ -14,9 +14,11 @@ const path = require('path');
 
 module.exports = function(app) {
 
-  fs.readFile("../db/db.json"),"utf8", function(err, data) {
+  fs.readFile('db/db.json','utf8'), function(err, data) {
     if (err) throw err;
-    var noteData = JSON.parse(data);
+    
+    var notes = JSON.parse(data);
+    
   
   // API GET Requests
   // Below code handles when users "visit" a page.
@@ -25,12 +27,12 @@ module.exports = function(app) {
   // ---------------------------------------------------------------------------
 
   app.get("/api/notes", function(req, res) {
-    res.json(noteData);
+    res.json(notes);
   });
 
   app.post("/api/notes", function(req, res){
     let newNote = req.body;
-    noteData.push(newNote);
+    notes.push(newNote);
     updateDb();
     return console.log("Added new note: " + newNote.title);
 
@@ -44,7 +46,7 @@ module.exports = function(app) {
   });
 
   app.get("/api/notes/:id", function (req, res){
-    res.json(noteData[req.param.id]);
+    res.json(notes[req.param.id]);
   })
 // req.body - access to the new note
 // need to add an ID to the note 
@@ -55,7 +57,7 @@ module.exports = function(app) {
 // newNote writing noteData to db.json
 
 app.delete("/api/notes/:id", function(req, res){
-  noteData.splice(req.params.id, 1);
+  notes.splice(req.params.id, 1);
   updateDb();
   console.log("Deleted note with id "+req.params.id);
 });
@@ -64,10 +66,10 @@ app.delete("/api/notes/:id", function(req, res){
 
 
 function updateDb() {
-  fs.writeFile("../db/db.json", JSON.stringify(noteData), function(err){
+  fs.writeFile('db/db.json'), JSON.stringify(notes), function(err){
       if (err) throw err;
       return true;
-  });
+  };
 }
 
   }
