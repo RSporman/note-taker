@@ -41,7 +41,7 @@ module.exports = function(app) {
     // noteData.push(req.body);
 
     // res.json(noteData);
-  })
+  });
 
   app.get("/api/notes/:id", function (req, res){
     res.json(noteData[req.param.id]);
@@ -55,15 +55,16 @@ module.exports = function(app) {
 // newNote writing noteData to db.json
 
 app.delete("/api/notes/:id", function(req, res){
-  //  below to get to the ID and reference it
-  req.params.id
-  updateDb()
-})
+  noteData.splice(req.params.id, 1);
+  updateDb();
+  console.log("Deleted note with id "+req.params.id);
+});
+
 
 
 
 function updateDb() {
-  fs.writeFile("../db/db.json", JSON.stringify(noteData,'\t'), function(err){
+  fs.writeFile("../db/db.json", JSON.stringify(noteData), function(err){
       if (err) throw err;
       return true;
   });
