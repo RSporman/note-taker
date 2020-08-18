@@ -40,6 +40,9 @@ Application will allow users to delete previously saved notes.
 
 This app is deployed on Heroku. 
 
+https://quiet-atoll-23041.herokuapp.com/
+https://git.heroku.com/quiet-atoll-23041.git
+
 
 https://github.com/RSporman/note-taker
 
